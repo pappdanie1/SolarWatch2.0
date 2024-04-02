@@ -1,3 +1,5 @@
+using SolarWatch.Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +8,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers(
+    options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+builder.Services.AddSingleton<ICoordinateProvider, GeoCodingApi>();
+builder.Services.AddSingleton<ISunDataProvider, SunriseSunsetApi>();
+builder.Services.AddSingleton<IJsonProcessor, JsonProcessor>();
 
 var app = builder.Build();
 
@@ -21,5 +28,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseDeveloperExceptionPage();
 
 app.Run();
