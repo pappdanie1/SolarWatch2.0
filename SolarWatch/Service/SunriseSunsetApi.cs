@@ -12,13 +12,15 @@ public class SunriseSunsetApi : ISunDataProvider
     }
 
 
-    public string GetSunriseSunset(double lat, double lon)
+    public async Task<string> GetSunriseSunset(double lat, double lon)
     {
-        var url = $"https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}";
+        var timeZoneId = "Europe/Budapest"; 
+        var url = $"https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}&tzid={timeZoneId}";
         
-        using var client = new WebClient();
+        using var client = new HttpClient();
         
         _logger.LogInformation("Calling Sunrise Sunset API with url: {url}", url);
-        return client.DownloadString(url);
+        var response = await client.GetAsync(url);
+        return await response.Content.ReadAsStringAsync();
     }
 }
