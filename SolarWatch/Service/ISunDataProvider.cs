@@ -2,5 +2,5 @@ namespace SolarWatch.Service;
 
 public interface ISunDataProvider
 {
-    string GetSunriseSunset(double lat, double lon);
+    Task<string> GetSunriseSunset(double lat, double lon);
 }
