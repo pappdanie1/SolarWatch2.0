@@ -21,7 +21,7 @@ public class SolarWatchController : ControllerBase
     }
 
     [HttpGet("GetSolarWatch")]
-    public ActionResult<SolarWatchResponse> Get(string city)
+    public async Task<ActionResult<SolarWatchResponse>> Get(string city)
     {
         _logger.LogInformation("request sent");
         try
@@ -31,12 +31,12 @@ public class SolarWatchController : ControllerBase
                 return BadRequest("City name must be at least 3 characters long.");
             }
             
-            var coordsData = _coordinateProvider.GetLatLon(city);
+            var coordsData = await _coordinateProvider.GetLatLon(city);
             var coords = _jsonProcessor.ProcessLatLon(coordsData);
             var lat = coords[0];
             var lon = coords[1];
             
-            var sunData = _sunDataProvider.GetSunriseSunset(lat, lon);
+            var sunData = await _sunDataProvider.GetSunriseSunset(lat, lon);
             var sunsetSunrise = _jsonProcessor.ProcessSunriseSunset(sunData);
             
             return Ok(sunsetSunrise);
