@@ -12,14 +12,15 @@ public class GeoCodingApi : ICoordinateProvider
         _logger = logger;
     }
 
-    public string GetLatLon(string city)
+    public async Task<string> GetLatLon(string city)
     {
         var apiKey = "eb492d310dac0d33aeacc638aec3f04d";
         var url = $"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={apiKey}";
         
-        using var client = new WebClient();
+        using var client = new HttpClient();
         
         _logger.LogInformation("Calling Geo Coding API with url: {url}", url);
-        return client.DownloadString(url);
+        var response = await client.GetAsync(url);
+        return await response.Content.ReadAsStringAsync();
     }
 }
