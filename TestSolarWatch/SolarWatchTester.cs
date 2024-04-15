@@ -25,42 +25,42 @@ public class SolarWatchTester
     }
     
     [Test]
-    public void Get_InvalidCity_ReturnsBadRequest()
+    public async Task Get_InvalidCity_ReturnsBadRequest()
     {
         var city = "NY"; 
         
-        var result = _controller.Get(city);
+        var result = await _controller.Get(city);
         
         Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
     }
 
     [Test]
-    public void Get_ExceptionThrown_ReturnsNotFound()
+    public async Task Get_ExceptionThrown_ReturnsNotFound()
     {
         var city = "New York";
         _coordinateProviderMock.Setup(cp => cp.GetLatLon(city)).Throws(new Exception());
 
-        var result = _controller.Get(city);
+        var result = await _controller.Get(city);
 
         Assert.IsInstanceOf<NotFoundObjectResult>(result.Result);
     }
     
     [Test]
-    public void Get_EmptyCity_ReturnsBadRequest()
+    public async Task Get_EmptyCity_ReturnsBadRequest()
     {
         string city = ""; 
 
-        var result = _controller.Get(city);
+        var result = await _controller.Get(city);
 
         Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
     }
 
     [Test]
-    public void Get_NullCity_ReturnsBadRequest()
+    public async Task Get_NullCity_ReturnsBadRequest()
     {
         string city = null; 
 
-        var result = _controller.Get(city);
+        var result = await _controller.Get(city);
 
         Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
     }
