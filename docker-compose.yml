@@ -1,0 +1,27 @@
+﻿version: '3.4'
+
+services:
+  solarwatchdocker:
+    image: ${DOCKER_REGISTRY-}solarwatchdocker
+    build:
+      context: .
+      dockerfile: SolarWatch/Dockerfile
+  SolarWatchDB:
+    container_name: SolarWatchDBContainer
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Dani9123%
+  SolarWatchApi:
+    container_name: SolarWatchApiContainer
+    image: ${DOCKER_REGISTRY-}solarwatchdocker
+    ports:
+      - 8080:80
+    build:
+      context: .
+      dockerfile: SolarWatch/Dockerfile
+    depends_on:
+      - SolarWatchDB
+      
