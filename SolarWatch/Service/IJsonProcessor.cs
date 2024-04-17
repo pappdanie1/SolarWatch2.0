@@ -1,7 +1,9 @@
+using SolarWatch.Model;
+
 namespace SolarWatch.Service;
 
 public interface IJsonProcessor
 {
-    List<double> ProcessLatLon(string data);
-    SolarWatchResponse ProcessSunriseSunset(string data);
+    City ProcessCity(string data);
+    SunsetSunrise ProcessSunriseSunset(string data, City city);
 }
