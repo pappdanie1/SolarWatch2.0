@@ -12,7 +12,7 @@ public class GeoCodingApi : ICoordinateProvider
         _logger = logger;
     }
 
-    public async Task<string> GetLatLon(string city)
+    public async Task<string> GetCity(string city)
     {
         var apiKey = "eb492d310dac0d33aeacc638aec3f04d";
         var url = $"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={apiKey}";
