@@ -24,8 +24,8 @@ jobs:
 
     - name: Build and Push Docker images
       run: |
-        docker build -t yourusername/yourrepository1:latest -f /SolarWatch/Dockerfile .
-        docker build -t yourusername/yourrepository2:latest -f /client/Dockerfile .
+        docker build -t pappdanie1/test:latest -f SolarWatch/Dockerfile .
+        docker build -t pappdanie1/test:latest -f client/Dockerfile .
         docker-compose -f /docker-compose.yml up -d
         docker push pappdanie1/test:latest
         docker push pappdanie1/test:latest
