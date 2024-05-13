@@ -23,6 +23,7 @@ services:
       JWSETTINGS__VALIDAUDIENCE: SolarWatchAuth
       ROLES__1: Admin
       ROLES__2: User
+    command: ["./wait-for-it.sh", "db:1433", "--", "dotnet", "run"]
   frontend:
     build:
       context: client
@@ -30,4 +31,3 @@ services:
     ports:
       - 5173:5173
     tty: true
-      

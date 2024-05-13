@@ -26,33 +26,7 @@ var app = builder.Build();
 
 using var scope = app.Services.CreateScope(); 
 var authenticationSeeder = scope.ServiceProvider.GetRequiredService<AuthenticationSeeder>();
-
-const int maxRetries = 5;
-int retries = 0;
-bool succeeded = false;
-
-while (!succeeded && retries < maxRetries)
-{
-    try
-    {
-        authenticationSeeder.AddRoles();
-        authenticationSeeder.AddAdmin();
-        succeeded = true;
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error adding roles and admin: {ex.Message}");
-        retries++;
-        Thread.Sleep(5000); 
-    }
-}
-
-if (!succeeded)
-{
-    Console.WriteLine("Failed to add roles and admin after multiple retries. Exiting application.");
-    Environment.Exit(1); 
-}
-
+scope.ServiceProvider.GetService<SolarWatchContext>().Database.Migrate();
 
 authenticationSeeder.AddRoles();
 authenticationSeeder.AddAdmin();
