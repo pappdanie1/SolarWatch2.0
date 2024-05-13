@@ -37,7 +37,7 @@ jobs:
         username: pappdanie1
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build Docker image
-      run: docker build -t pappdanie1/solar-watch:latest .
-      working-directory: ./SolarWatch
+      run: docker compose up
+      working-directory: .
     - name: Push Docker image to DockerHub
       run: docker push pappdanie1/solar-watch:latest
