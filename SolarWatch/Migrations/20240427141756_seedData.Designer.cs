@@ -12,8 +12,8 @@ using SolarWatch.Data;
 namespace SolarWatch.Migrations
 {
     [DbContext(typeof(SolarWatchContext))]
-    [Migration("20240417164405_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240427141756_seedData")]
+    partial class seedData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
