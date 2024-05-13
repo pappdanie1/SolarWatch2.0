@@ -36,13 +36,7 @@ jobs:
         registry: https://index.docker.io/v1/
         username: pappdanie1
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build Docker images
-      run: docker compose up -d
-      working-directory: .
-    - name: Wait for application to start
-      run: sleep 15 
-    - name: Push Docker images to DockerHub
+    - name: Build and push Docker images
       run: |
-       docker push pappdanie1/solarwatch-app:latest
-       docker push pappdanie1/solarwatch-frontend:latest
-       docker push pappdanie1/mcr.microsoft.com/mssql/server:2017-latest
+        docker-compose build
+        docker-compose push
