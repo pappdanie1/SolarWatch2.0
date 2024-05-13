@@ -6,7 +6,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["/SolarWatch.csproj", "SolarWatch/"]
+COPY ["SolarWatch/SolarWatch.csproj", "SolarWatch/"]
 RUN dotnet restore "SolarWatch/SolarWatch.csproj"
 COPY . .
 WORKDIR "/src/SolarWatch"
