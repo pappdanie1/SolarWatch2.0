@@ -38,6 +38,6 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build Docker image
       run: docker build -t pappdanie1/solar-watch:latest .
-      working-directory: ./SolarWatch
+      working-directory: ./SolarWatch/SolarWatch
     - name: Push Docker image to DockerHub
       run: docker push pappdanie1/solar-watch:latest
