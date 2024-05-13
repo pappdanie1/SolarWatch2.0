@@ -1,19 +1,17 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SolarWatch.Model;
 
 namespace SolarWatch.Data;
 
-public class SolarWatchContext : DbContext
+public class UsersContext : IdentityDbContext<IdentityUser, IdentityRole, string>
 {
     private readonly IConfiguration _configuration;
 
-    public SolarWatchContext(IConfiguration configuration)
+    public UsersContext(IConfiguration configuration)
     {
         _configuration = configuration;
     }
-    public DbSet<City> Cities { get; set; }
-    public DbSet<SunsetSunrise> SunsetSunrises { get; set; }
-    
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -22,5 +20,10 @@ public class SolarWatchContext : DbContext
         {
             options.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
         });
+    }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
     }
 }
