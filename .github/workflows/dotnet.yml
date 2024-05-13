@@ -26,5 +26,6 @@ jobs:
       working-directory: ./SolarWatch
     - name: Build
       run: dotnet build --no-restore
+      working-directory: ./SolarWatch
     - name: Test
       run: dotnet test --no-build --verbosity normal
