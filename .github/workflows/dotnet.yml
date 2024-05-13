@@ -40,9 +40,9 @@ jobs:
       run: docker compose up -d
       working-directory: .
     - name: Wait for application to start
-      run: sleep 30 
+      run: sleep 15 
     - name: Push Docker images to DockerHub
       run: |
-       docker push pappdanie1/db-1
-       docker push pappdanie1/frontend-1
-       docker push pappdanie1/app-1
+       docker push pappdanie1/solarwatch-app:latest
+       docker push pappdanie1/solarwatch-frontend:latest
+       docker push pappdanie1/mcr.microsoft.com/mssql/server:2017-latest
