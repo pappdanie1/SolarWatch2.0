@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SolarWatch.Data;
@@ -99,8 +100,12 @@ void ConfigureSwagger()
 
 void AddDbContext()
 {
-    builder.Services.AddDbContext<SolarWatchContext>();
-    builder.Services.AddDbContext<UsersContext>();
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Services.AddDbContext<SolarWatchContext>(options =>
+        options.UseSqlServer(connectionString, sqlOption =>
+        {
+            sqlOption.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+        }));
 }
 
 void AddAuthentication()
@@ -144,5 +149,7 @@ void AddIdentity()
             options.Password.RequireLowercase = false;
         })
         .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<UsersContext>();
+        .AddEntityFrameworkStores<SolarWatchContext>();
 }
+
+public partial class Program { }
