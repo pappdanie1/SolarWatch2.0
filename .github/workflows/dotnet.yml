@@ -36,10 +36,13 @@ jobs:
         registry: https://index.docker.io/v1/
         username: pappdanie1
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build Docker image
+    - name: Build Docker images
       run: docker compose up -d
       working-directory: .
     - name: Wait for application to start
-      run: sleep 120 
-    - name: Push Docker image to DockerHub
-      run: docker push pappdanie1/solar-watch:latest
+      run: sleep 30 
+    - name: Push Docker images to DockerHub
+      run: |
+       docker push pappdanie1/db-1
+       docker push pappdanie1/frontend-1
+       docker push pappdanie1/app-1
