@@ -37,7 +37,9 @@ jobs:
         username: pappdanie1
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build Docker image
-      run: docker compose up
+      run: docker compose up -d
       working-directory: .
+    - name: Wait for application to start
+      run: sleep 120 
     - name: Push Docker image to DockerHub
       run: docker push pappdanie1/solar-watch:latest
