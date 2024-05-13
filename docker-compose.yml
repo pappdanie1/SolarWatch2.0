@@ -11,7 +11,6 @@ services:
   app:
     ports:
       - 8080:80
-    image: ${DOCKER_REGISTRY-}solarwatch-app
     build:
       context: .
       dockerfile: SolarWatch/Dockerfile
@@ -25,10 +24,9 @@ services:
       ROLES__1: Admin
       ROLES__2: User
   frontend:
-    image: ${DOCKER_REGISTRY-}solarwatchfrontend
     build:
-      context: .
-      dockerfile: client/Dockerfile
+      context: client
+      dockerfile: Dockerfile
     ports:
       - 5173:5173
     tty: true
