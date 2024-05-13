@@ -11,6 +11,7 @@ services:
   app:
     ports:
       - 8080:80
+    image: ${DOCKER_REGISTRY-}solarwatch-app
     build:
       context: .
       dockerfile: SolarWatch/Dockerfile
