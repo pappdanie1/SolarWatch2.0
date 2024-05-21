@@ -37,6 +37,15 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: ./TestSolarWatch
+    - name: Restore dependencies IntegrationTests
+      run: dotnet restore
+      working-directory: ./IntegrationTest
+    - name: Build IntegrationTests
+      run: dotnet build --no-restore
+      working-directory: ./IntegrationTest
+    - name: IntegrationTests
+      run: dotnet test --no-build --verbosity normal
+      working-directory: ./IntegrationTest
     - name: Login to DockerHub
       uses: docker/login-action@v2
       with:
