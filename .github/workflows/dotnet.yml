@@ -14,6 +14,13 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      JWSETTINGS__VALIDISSUER: ${{ secrets.JWSETTINGS__VALIDISSUER }}
+      JWSETTINGS__VALIDAUDIENCE: ${{ secrets.JWSETTINGS__VALIDAUDIENCE }}
+      SIGNINGKEY__ISSUERSIGNINGKEY: ${{ secrets.SIGNINGKEY__ISSUERSIGNINGKEY }}
+      DEFAULTCONNECTION: ${{ secrets.DEFAULTCONNECTION }}
+      ROLES__1: ${{ secrets.ROLES__1 }}
+      ROLES__2: ${{ secrets.ROLES__2 }}
 
     steps:
     - uses: actions/checkout@v4
@@ -23,10 +30,10 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: ./SolarWatch
+      working-directory: ./TestSolarWatch
     - name: Build
       run: dotnet build --no-restore
-      working-directory: ./SolarWatch
+      working-directory: ./TestSolarWatch
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: ./TestSolarWatch
